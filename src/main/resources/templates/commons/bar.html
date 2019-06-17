@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--topbar-->
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:fragment="topbar">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/index">班主任后台管理</a>
+
+        <ul class="navbar-nav px-3"sec:authorize="!isAuthenticated()">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link">游客你好</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav px-3" sec:authorize="!isAuthenticated()">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/login">登录</a>
+            </li>
+        </ul>
+
+    <ul class="navbar-nav px-3"sec:authorize="isAuthenticated()">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link"><span sec:authentication="name"></span></a>
+        </li>
+    </ul>
+    <ul class="navbar-nav px-3" sec:authorize="isAuthenticated()">
+        <form name='logout' th:action="@{/logout}" method='post'>
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="javascript:document.logout.submit();">注销</a>
+            </li>
+        </form>
+    </ul>
+
+
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <ul class="navbar-nav px-3">
+        <form name="search" th:action="@{/logout}" method="post">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="javascript:document.search.submit();">查询</a>
+            </li>
+        </form>
+    </ul>
+</nav>
+<!--sidebar-->
+<nav class="col-md-2 d-none d-md-block bg-light sidebar" id="sidebar">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item" sec:authorize="hasRole('admin')">
+                <a class="nav-link active"
+                   th:class="${activeUri=='index'?'nav-link active':'nav-link'}" href="/index" th:href="@{/index}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-home">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    主页 <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active"
+                   th:class="${activeUri=='show'?'nav-link active':'nav-link'}" href="/engineer/abc"
+                   th:href="@{/engineer/abc}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-home">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    点赞页 <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/grades"
+                   th:class="${activeUri=='grades'?'nav-link active':'nav-link'}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-users">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    班级管理
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/students"
+                   th:class="${activeUri=='students'?'nav-link active':'nav-link'}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-users">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    学生管理
+                </a>
+            </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>数据查看</span>
+            <a class="d-flex align-items-center text-muted"
+               href="/index">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-plus-circle">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+            </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+                <a class="nav-link" href="/infos"
+                   th:class="${activeUri=='infos'?'nav-link active':'nav-link'}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-bar-chart-2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    学员留言数据
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/zans"
+                   th:class="${activeUri=='zans'?'nav-link active':'nav-link'}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-bar-chart-2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    点赞数据
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>

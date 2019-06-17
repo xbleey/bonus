@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://getbootstrap.com/docs/4.0/examples/dashboard/# -->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>页面请求错误</title>
+</head>
+<body>
+<h1>错误代码：[[${status}]]</h1>
+<h2 th:if="!${#strings.isEmpty(timestamp)}">时间戳：[[${timestamp}]]</h2>
+<h3 th:if="!${#strings.isEmpty(exception)}">错误类：[[${exception}]]</h3>
+<h3>错误数据：[[${message}]]</h3>
+<h3>访问路径：[[${path}]]</h3>
+</body>
+</html>

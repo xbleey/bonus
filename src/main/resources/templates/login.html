@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Junhao">
+    <title>系统登录</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../files/bootstrap.min.css" rel="stylesheet"
+          crossorigin="anonymous">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="../files/floating-labels.css" rel="stylesheet">
+</head>
+<body>
+<form class="form-signin" th:action="@{/login}" method="post">
+    <div class="text-center mb-4">
+        <img class="mb-4" src="../favicon.ico" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">奖金管理系统</h1>
+
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" id="inputText" name="username" class="form-control" placeholder="您的用户名" required autofocus>
+        <label for="inputText">用户名</label>
+    </div>
+
+    <div class="form-label-group">
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="请输入密码" required>
+        <label for="inputPassword">密码</label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    <p class="mt-5 mb-3 text-muted text-center" th:text="帐号密码无效" th:if="${param.error}"></p>
+    <p class="mt-5 mb-3 text-muted text-center" th:text="您已经登出" th:if="${param.logout}"></p>
+    <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2019</p>
+</form>
+</body>
+</html>

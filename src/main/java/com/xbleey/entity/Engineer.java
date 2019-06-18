@@ -31,6 +31,8 @@ public class Engineer {
     private String engineerUser;
     @Column(name = " engineer_pass")
     private String engineerPass;
+    @Column(name = " engineer_name")
+    private String engineerName;
     @Column(name = " engineer_sex")
     private Boolean engineerSex;
     @Column(name = " engineer_phone")
@@ -60,6 +62,14 @@ public class Engineer {
 
     public void setEngineerPass(String engineerPass) {
         this.engineerPass = engineerPass;
+    }
+
+    public String getEngineerName() {
+        return engineerName;
+    }
+
+    public void setEngineerName(String engineerName) {
+        this.engineerName = engineerName;
     }
 
     public Boolean getEngineerSex() {
@@ -92,6 +102,7 @@ public class Engineer {
                 "engineerId=" + engineerId +
                 ", engineerUser='" + engineerUser + '\'' +
                 ", engineerPass='" + engineerPass + '\'' +
+                ", engineerName='" + engineerName + '\'' +
                 ", engineerSex=" + engineerSex +
                 ", engineerPhone=" + engineerPhone +
                 ", engineerBank=" + engineerBank +

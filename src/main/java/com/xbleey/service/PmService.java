@@ -10,11 +10,12 @@
  */
 package com.xbleey.service;
 
-import com.xbleey.dao.EngineerDao;
-import com.xbleey.entity.Engineer;
+import com.xbleey.dao.PmDao;
+import com.xbleey.entity.Pm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,17 +27,21 @@ import java.util.List;
  * @since 1.0.0
  */
 @Service
-public class EngineerService {
+public class PmService {
     @Autowired
-    EngineerDao engineerDao;
+    PmDao pmDao;
 
-    public Boolean login(String userName, String passWord) {
-        Boolean isEngineerUser = engineerDao.existsAllByEngineerUserAndEngineerPass(userName, passWord);
-        return isEngineerUser;
+    public List<Pm> findAll(){
+       return pmDao.findAll();
     }
 
-    public List<Engineer> findAll(){
-        return engineerDao.findAll();
+    public HashMap<Integer, String> getIdAndName() {
+        List<Pm> pms = pmDao.findAll();
+        HashMap<Integer, String> pmNames = new HashMap<>();
+        for (Pm p : pms) {
+            pmNames.put(p.getPmId(), p.getPmName());
+        }
+        return pmNames;
     }
 }
  

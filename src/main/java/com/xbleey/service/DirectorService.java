@@ -10,8 +10,8 @@
  */
 package com.xbleey.service;
 
-import com.xbleey.dao.EngineerDao;
-import com.xbleey.entity.Engineer;
+import com.xbleey.dao.DirectorDao;
+import com.xbleey.entity.Director;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,17 +26,12 @@ import java.util.List;
  * @since 1.0.0
  */
 @Service
-public class EngineerService {
+public class DirectorService {
     @Autowired
-    EngineerDao engineerDao;
+    DirectorDao directorDao;
 
-    public Boolean login(String userName, String passWord) {
-        Boolean isEngineerUser = engineerDao.existsAllByEngineerUserAndEngineerPass(userName, passWord);
-        return isEngineerUser;
-    }
-
-    public List<Engineer> findAll(){
-        return engineerDao.findAll();
+    public List<Director> findAll() {
+        return directorDao.findAll();
     }
 }
  

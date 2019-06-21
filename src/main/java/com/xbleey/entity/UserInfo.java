@@ -10,6 +10,8 @@
  */
 package com.xbleey.entity;
 
+import java.util.Arrays;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈〉
@@ -21,12 +23,12 @@ package com.xbleey.entity;
 public class UserInfo {
     private String userName;
     private String passWord;
-    private String role;
+    private String[] role;
 
     public UserInfo() {
     }
 
-    public UserInfo(String userName, String passWord, String role) {
+    public UserInfo(String userName, String passWord, String[] role) {
         this.userName = userName;
         this.passWord = passWord;
         this.role = role;
@@ -48,12 +50,21 @@ public class UserInfo {
         this.passWord = passWord;
     }
 
-    public String getRole() {
+    public String[] getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(String[] role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                ", role=" + Arrays.toString(role) +
+                '}';
     }
 }
  

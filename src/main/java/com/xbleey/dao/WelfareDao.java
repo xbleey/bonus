@@ -1,8 +1,8 @@
 /**
  * Copyright (C), 2019-2019, XXX有限公司
- * FileName: TeamDao
+ * FileName: WelfareDao
  * Author:   11580
- * Date:     2019/6/18 0018 23:41
+ * Date:     2019/6/20 0020 10:25
  * Description:
  * History:
  * <author>          <time>          <version>          <desc>
@@ -10,7 +10,7 @@
  */
 package com.xbleey.dao;
 
-import com.xbleey.entity.Team;
+import com.xbleey.entity.Welfare;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -18,9 +18,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * 〈〉
  *
  * @author 11580
- * @create 2019/6/18 0018
+ * @create 2019/6/20 0020
  * @since 1.0.0
  */
-public interface TeamDao extends JpaRepository<Team,Integer> {
-
+public interface WelfareDao extends JpaRepository<Welfare,Integer> {
 }

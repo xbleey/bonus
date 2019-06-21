@@ -13,7 +13,7 @@ package com.xbleey.entity;
 import javax.persistence.*;
 
 /**
- * 〈一句话功能简述〉<br> 
+ * 〈一句话功能简述〉<br>
  * 〈〉
  *
  * @author 11580
@@ -24,15 +24,17 @@ import javax.persistence.*;
 @Table(name = "team")
 public class Team {
     @Id
-    @Column(name = " money_id")
+    @Column(name = " team_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer teamId;
+    @Column(name = " true_id")
+    private Integer trueId;
     @Column(name = " project_id")
     private Integer projectId;
-    @Column(name = " engineer_id")
-    private Integer engineerId;
     @Column(name = " pm_id")
     private Integer pmId;
+    @Column(name = " engineer_id")
+    private Integer engineerId;
 
     public Integer getTeamId() {
         return teamId;
@@ -40,6 +42,14 @@ public class Team {
 
     public void setTeamId(Integer teamId) {
         this.teamId = teamId;
+    }
+
+    public Integer getTrueId() {
+        return trueId;
+    }
+
+    public void setTrueId(Integer trueId) {
+        this.trueId = trueId;
     }
 
     public Integer getProjectId() {
@@ -50,14 +60,6 @@ public class Team {
         this.projectId = projectId;
     }
 
-    public Integer getEngineerId() {
-        return engineerId;
-    }
-
-    public void setEngineerId(Integer engineerId) {
-        this.engineerId = engineerId;
-    }
-
     public Integer getPmId() {
         return pmId;
     }
@@ -66,14 +68,39 @@ public class Team {
         this.pmId = pmId;
     }
 
+    public Integer getEngineerId() {
+        return engineerId;
+    }
+
+    public void setEngineerId(Integer engineerId) {
+        this.engineerId = engineerId;
+    }
+
     @Override
     public String toString() {
         return "Team{" +
                 "teamId=" + teamId +
+                ", trueId=" + trueId +
                 ", projectId=" + projectId +
-                ", engineerId=" + engineerId +
                 ", pmId=" + pmId +
+                ", engineerId=" + engineerId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        try {
+            obj = (Team) obj;
+            if (this.trueId.equals(((Team) obj).getTrueId())) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+            return super.equals(obj);
+        }
+
     }
 }
  

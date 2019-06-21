@@ -37,8 +37,7 @@ public class Pm {
     private Boolean pmSex;
     @Column(name = " PM_phone")
     private Long pmPhone;
-    @Column(name = " PM_bank")
-    private int pmBank;
+
 
     public Integer getPmId() {
         return pmId;
@@ -88,14 +87,6 @@ public class Pm {
         this.pmPhone = pmPhone;
     }
 
-    public int getPmBank() {
-        return pmBank;
-    }
-
-    public void setPmBank(int pmBank) {
-        this.pmBank = pmBank;
-    }
-
     @Override
     public String toString() {
         return "Pm{" +
@@ -105,7 +96,6 @@ public class Pm {
                 ", pmName='" + pmName + '\'' +
                 ", pmSex=" + pmSex +
                 ", pmPhone=" + pmPhone +
-                ", pmBank=" + pmBank +
                 '}';
     }
 }

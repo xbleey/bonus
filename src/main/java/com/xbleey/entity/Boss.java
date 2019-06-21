@@ -37,8 +37,6 @@ public class Boss {
     private Boolean bossSex;
     @Column(name = " boss_phone")
     private Long bossPhone;
-    @Column(name = " boss_bank")
-    private int bossBank;
 
     public Integer getBossId() {
         return bossId;
@@ -88,24 +86,15 @@ public class Boss {
         this.bossPhone = bossPhone;
     }
 
-    public int getBossBank() {
-        return bossBank;
-    }
-
-    public void setBossBank(int bossBank) {
-        this.bossBank = bossBank;
-    }
-
     @Override
     public String toString() {
-        return "boss{" +
+        return "Boss{" +
                 "bossId=" + bossId +
                 ", bossUser='" + bossUser + '\'' +
                 ", bossPass='" + bossPass + '\'' +
                 ", bossName='" + bossName + '\'' +
                 ", bossSex=" + bossSex +
                 ", bossPhone=" + bossPhone +
-                ", bossBank=" + bossBank +
                 '}';
     }
 }

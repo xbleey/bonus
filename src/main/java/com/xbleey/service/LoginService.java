@@ -12,18 +12,15 @@ package com.xbleey.service;
 
 import com.xbleey.dao.AdminDao;
 import com.xbleey.dao.EngineerDao;
-import com.xbleey.entity.Admin;
-import com.xbleey.entity.Engineer;
-import com.xbleey.entity.UserInfo;
+import com.xbleey.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
- * 〈一句话功能简述〉<br> 
+ * 〈一句话功能简述〉<br>
  * 〈〉
  *
  * @author 11580
@@ -32,32 +29,51 @@ import java.util.List;
  */
 @Service
 public class LoginService {
-    private ArrayList<UserInfo> userInfos = new ArrayList<>();
-
     @Autowired
     AdminDao adminDao;
     @Autowired
     EngineerDao engineerDao;
+    @Autowired
+    PmService pmService;
+    @Autowired
+    DirectorService directorService;
+    @Autowired
+    BossService bossService;
 
-    public void init(){
+    private ArrayList<UserInfo> userInfos = new ArrayList<>();
+
+    public void init() {
         //加载Dao层
-        List<Admin> admins =adminDao.findAll();
+        List<Admin> admins = adminDao.findAll();
         List<Engineer> engineers = engineerDao.findAll();
+        List<Pm> pms = pmService.findAll();
+        List<Director> directors = directorService.findAll();
+        List<Boss> bosses = bossService.findAll();
 
         //导入ArrayList
-        for(Admin a:admins){
-            userInfos.add(new UserInfo(a.getAdminUser(),a.getAdminPass(),"admin"));
+        for (Admin a : admins) {
+            userInfos.add(new UserInfo(a.getAdminUser(), a.getAdminPass(), new String[]{"admin", "engineer"}));
         }
-        for(Engineer e:engineers){
-            userInfos.add(new UserInfo(e.getEngineerUser(),e.getEngineerPass(),"engineer"));
+        for (Boss b : bosses) {
+            userInfos.add(new UserInfo(b.getBossUser(), b.getBossPass(), new String[]{"engineer", "pm", "director", "boss"}));
         }
+        for (Director d : directors) {
+            userInfos.add(new UserInfo(d.getDirectorUser(), d.getDirectorPass(), new String[]{"engineer", "pm", "director"}));
+        }
+        for (Pm p : pms) {
+            userInfos.add(new UserInfo(p.getPmUser(), p.getPmPass(), new String[]{"engineer", "pm"}));
+        }
+        for (Engineer e : engineers) {
+            userInfos.add(new UserInfo(e.getEngineerUser(), e.getEngineerPass(), new String[]{"engineer"}));
+        }
+
     }
 
     public ArrayList<UserInfo> getUserInfos() {
         return userInfos;
     }
 
-    public void destroy(){
+    public void destroy() {
         userInfos.clear();
     }
 }

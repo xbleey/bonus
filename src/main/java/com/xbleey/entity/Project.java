@@ -33,10 +33,12 @@ public class Project {
     private String projectInstruction;
     @Column(name = " project_pm_id")
     private Integer projectPmId;
-    @Column(name = " project_engineer_id")
-    private Integer projectEngineerId;
-    @Column(name = " project_for_money")
-    private Integer projectForMoney;
+    @Column(name = " project_start_money")
+    private Integer projectStartMoney;
+    @Column(name = " project_true_money")
+    private Integer projectTrueMoney;
+    @Column(name = " project_total_money")
+    private Integer projectTotalMoney;
 
     public Integer getProjectId() {
         return projectId;
@@ -70,20 +72,28 @@ public class Project {
         this.projectPmId = projectPmId;
     }
 
-    public Integer getProjectEngineerId() {
-        return projectEngineerId;
+    public Integer getProjectStartMoney() {
+        return projectStartMoney;
     }
 
-    public void setProjectEngineerId(Integer projectEngineerId) {
-        this.projectEngineerId = projectEngineerId;
+    public void setProjectStartMoney(Integer projectStartMoney) {
+        this.projectStartMoney = projectStartMoney;
     }
 
-    public Integer getProjectForMoney() {
-        return projectForMoney;
+    public Integer getProjectTrueMoney() {
+        return projectTrueMoney;
     }
 
-    public void setProjectForMoney(Integer projectForMoney) {
-        this.projectForMoney = projectForMoney;
+    public void setProjectTrueMoney(Integer projectTrueMoney) {
+        this.projectTrueMoney = projectTrueMoney;
+    }
+
+    public Integer getProjectTotalMoney() {
+        return projectTotalMoney;
+    }
+
+    public void setProjectTotalMoney(Integer projectTotalMoney) {
+        this.projectTotalMoney = projectTotalMoney;
     }
 
     @Override
@@ -93,8 +103,9 @@ public class Project {
                 ", projectName='" + projectName + '\'' +
                 ", projectInstruction='" + projectInstruction + '\'' +
                 ", projectPmId=" + projectPmId +
-                ", projectEngineerId=" + projectEngineerId +
-                ", projectForMoney=" + projectForMoney +
+                ", projectStartMoney=" + projectStartMoney +
+                ", projectTrueMoney=" + projectTrueMoney +
+                ", projectTotalMoney=" + projectTotalMoney +
                 '}';
     }
 }

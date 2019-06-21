@@ -8,7 +8,7 @@
 <body>
 <!--topbar-->
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" th:fragment="topbar">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/index">班主任后台管理</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/index">奖金管理系统</a>
 
         <ul class="navbar-nav px-3"sec:authorize="!isAuthenticated()">
             <li class="nav-item text-nowrap">
@@ -48,7 +48,7 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar" id="sidebar">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
-            <li class="nav-item" sec:authorize="hasRole('admin')">
+            <li class="nav-item">
                 <a class="nav-link active"
                    th:class="${activeUri=='index'?'nav-link active':'nav-link'}" href="/index" th:href="@{/index}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -60,21 +60,39 @@
                     主页 <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasRole('admin')">
                 <a class="nav-link active"
-                   th:class="${activeUri=='show'?'nav-link active':'nav-link'}" href="/engineer/abc"
-                   th:href="@{/engineer/abc}">
+                   th:class="${activeUri=='allInfo'?'nav-link active':'nav-link'}" href="/index"
+                   th:href="@{/allInfo}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                         stroke-linejoin="round" class="feather feather-home">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                         stroke-linejoin="round" class="feather feather-users">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
-                    点赞页 <span class="sr-only">(current)</span>
+                    全体个人信息 <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/grades"
+            <li class="nav-item" sec:authorize="hasRole('admin')">
+                <a class="nav-link active"
+                   th:class="${activeUri=='allTeam'?'nav-link active':'nav-link'}" href="/yourInfo"
+                   th:href="@{/allTeam}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-users">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    团队信息<span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item" sec:authorize="hasRole('pm')">
+                <a class="nav-link" href="#"
+                   th:href="@{/pm/addProject}"
                    th:class="${activeUri=='grades'?'nav-link active':'nav-link'}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -84,7 +102,7 @@
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
-                    班级管理
+                    添加项目
                 </a>
             </li>
             <li class="nav-item">

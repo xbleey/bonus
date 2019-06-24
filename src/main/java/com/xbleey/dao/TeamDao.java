@@ -13,14 +13,18 @@ package com.xbleey.dao;
 import com.xbleey.entity.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
- * 〈一句话功能简述〉<br> 
+ * 〈一句话功能简述〉<br>
  * 〈〉
  *
  * @author 11580
  * @create 2019/6/18 0018
- * @since 1.0.0
+ * @since 1.0.0e
  */
-public interface TeamDao extends JpaRepository<Team,Integer> {
+public interface TeamDao extends JpaRepository<Team, Integer> {
+    public List<Team> findAllByEngineerId(Integer engineerId);
 
+    public List<Team> findAllByProjectId(Integer engineerId);
 }

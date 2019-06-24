@@ -38,4 +38,11 @@ public class EngineerTests {
         logger.info(String.valueOf(isEngineer));
     }
 
+    @Test
+    public void engineerNameTest() {
+        Engineer engineer = engineerService.findDistinctByEngineerUser("apple");
+        logger.info(engineer.toString());
+    }
+
+
 }

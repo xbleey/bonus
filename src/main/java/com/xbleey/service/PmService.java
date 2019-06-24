@@ -31,8 +31,8 @@ public class PmService {
     @Autowired
     PmDao pmDao;
 
-    public List<Pm> findAll(){
-       return pmDao.findAll();
+    public List<Pm> findAll() {
+        return pmDao.findAll();
     }
 
     public HashMap<Integer, String> getIdAndName() {
@@ -42,6 +42,10 @@ public class PmService {
             pmNames.put(p.getPmId(), p.getPmName());
         }
         return pmNames;
+    }
+
+    public Pm getPmByPmUser(String pmUser) {
+        return pmDao.getFirstByPmUser(pmUser);
     }
 }
  

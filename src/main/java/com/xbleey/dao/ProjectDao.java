@@ -12,18 +12,29 @@ package com.xbleey.dao;
 
 import com.xbleey.entity.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
- * 〈一句话功能简述〉<br> 
+ * 〈一句话功能简述〉<br>
  * 〈〉
  *
  * @author 11580
  * @create 2019/6/18 0018
  * @since 1.0.0
  */
-public interface ProjectDao extends JpaRepository<Project,Integer> {
+public interface ProjectDao extends JpaRepository<Project, Integer> {
     public Project getFirstByProjectId(Integer projectId);
+
+    public List<Project> findAllByProjectPmId(Integer pmId);
+
+    public List<Project> findAllByProjectStatus(String projectStatus);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update project e set project_status=?1 where project_id=?2",nativeQuery = true)
+    public int updateStatus(String status,Integer projectId);
 }

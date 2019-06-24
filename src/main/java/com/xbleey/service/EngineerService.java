@@ -35,8 +35,12 @@ public class EngineerService {
         return isEngineerUser;
     }
 
-    public List<Engineer> findAll(){
+    public List<Engineer> findAll() {
         return engineerDao.findAll();
+    }
+
+    public Engineer findDistinctByEngineerUser(String engineerUser) {
+        return engineerDao.findFirstByEngineerUser(engineerUser);
     }
 }
  

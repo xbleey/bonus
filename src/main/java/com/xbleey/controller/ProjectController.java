@@ -11,16 +11,23 @@
 package com.xbleey.controller;
 
 import com.xbleey.entity.Engineer;
+import com.xbleey.entity.Pm;
 import com.xbleey.entity.Project;
 import com.xbleey.service.EngineerService;
+import com.xbleey.service.PmService;
+import com.xbleey.service.ProjectService;
 import com.xbleey.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,29 +44,36 @@ public class ProjectController {
     EngineerService engineerService;
     @Autowired
     TeamService teamService;
+    @Autowired
+    ProjectService projectService;
+    @Autowired
+    PmService pmService;
 
 
-    @GetMapping(value = "/pm/addProject")
-    public String goProject(Model model) {
-        List<Engineer> engineers = engineerService.findAll();
-        model.addAttribute("engineers", engineers);
-        return "pm/addProject";
+    @GetMapping(value = "/projects")
+    public String redirectProject() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (userDetails.getAuthorities().size() == 1) {
+            return "redirect:/engineer/projects";
+        }
+        if (userDetails.getAuthorities().size() == 2) {
+            return "redirect:/pm/projects";
+        }
+        if (userDetails.getAuthorities().size() == 3) {
+            return "redirect:/director/projects";
+        }
+        if (userDetails.getAuthorities().size() == 4) {
+            return "redirect:/boss/projects";
+        }
+        if (userDetails.getAuthorities().size() == 5) {
+            return "redirect:/admin/projects";
+        }
+        return "index";
     }
 
-    @PostMapping(value = "/pm/addProject")
-    public String addProject(Model model, Project project, @RequestParam(value = "EngineerId") String[] engineerId) {
-        System.out.println(engineerId);
-        if(project.getProjectStartMoney()!=null){
 
-            return "redirect:/allTeam";
-        }
-        else {
-            List<Engineer> engineers = engineerService.findAll();
-            model.addAttribute("engineers", engineers);
-            model.addAttribute("moneyMessage","没填写项目预算  ");
-            return "pm/addProject";
-        }
-    }
+
 }
- 
+
+
 

@@ -52,7 +52,7 @@ public class LoginService {
 
         //导入ArrayList
         for (Admin a : admins) {
-            userInfos.add(new UserInfo(a.getAdminUser(), a.getAdminPass(), new String[]{"admin", "engineer"}));
+            userInfos.add(new UserInfo(a.getAdminUser(), a.getAdminPass(), new String[]{"admin","engineer", "pm", "director", "boss"}));
         }
         for (Boss b : bosses) {
             userInfos.add(new UserInfo(b.getBossUser(), b.getBossPass(), new String[]{"engineer", "pm", "director", "boss"}));

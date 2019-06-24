@@ -54,6 +54,43 @@ public class TeamService {
         }
         return team;
     }
+
+    public void saveNoEngineerTeam(Integer projectId, Integer pmId) {
+        int trueId = findTopTeamByTrueId().getTrueId() + 1;
+        Team team = new Team();
+        team.setTrueId(trueId);
+        team.setProjectId(projectId);
+        team.setPmId(pmId);
+
+
+        teamDao.save(team);
+    }
+
+    public void saveEngineerTeam(Integer projectId, Integer pmId, Integer[] engineerId) {
+        int trueId = findTopTeamByTrueId().getTrueId() + 1;
+        for (int i = 0; i < engineerId.length; i++) {
+            Team team = new Team();
+            team.setTrueId(trueId);
+            team.setProjectId(projectId);
+            team.setPmId(pmId);
+            team.setEngineerId(engineerId[i]);
+
+            teamDao.save(team);
+        }
+    }
+
+    public List<Team> findByProjectId(Integer projectId) {
+        return teamDao.findAllByProjectId(projectId);
+    }
+
+    public List<Integer> getTeamIdsbyProjectId(Integer projectId) {
+        List<Team> teams = findByProjectId(projectId);
+        List<Integer> teamIds = new ArrayList<>();
+        for (Team t : teams) {
+            teamIds.add(t.getEngineerId());
+        }
+        return teamIds;
+    }
 }
  
 

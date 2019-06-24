@@ -23,4 +23,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface EngineerDao extends JpaRepository<Engineer, Integer> {
     public Boolean existsAllByEngineerUserAndEngineerPass(String engineerUser, String engineerPass);
+
+    public Engineer findFirstByEngineerUser(String engineerUser);
 }

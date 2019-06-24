@@ -39,6 +39,8 @@ public class Project {
     private Integer projectTrueMoney;
     @Column(name = " project_total_money")
     private Integer projectTotalMoney;
+    @Column(name = " project_status")
+    private String projectStatus;
 
     public Integer getProjectId() {
         return projectId;
@@ -96,6 +98,14 @@ public class Project {
         this.projectTotalMoney = projectTotalMoney;
     }
 
+    public String getProjectStatus() {
+        return projectStatus;
+    }
+
+    public void setProjectStatus(String projectStatus) {
+        this.projectStatus = projectStatus;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -106,6 +116,7 @@ public class Project {
                 ", projectStartMoney=" + projectStartMoney +
                 ", projectTrueMoney=" + projectTrueMoney +
                 ", projectTotalMoney=" + projectTotalMoney +
+                ", projectStatus=" + projectStatus +
                 '}';
     }
 }

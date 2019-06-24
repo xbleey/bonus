@@ -36,7 +36,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/index", "/").permitAll();
-        http.authorizeRequests() .antMatchers("/engineer/**").hasRole("engineer");
+        http.authorizeRequests().antMatchers("/projects").hasRole("engineer");
+        http.authorizeRequests().antMatchers("/engineer/**").hasRole("engineer");
         http.authorizeRequests().antMatchers("/pm/**").hasRole("pm");
 
         http.formLogin().loginPage("/login");
@@ -48,7 +49,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         //super.configure(auth);
         loginService.init();
         for (UserInfo userInfo : loginService.getUserInfos()) {
-                auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser(userInfo.getUserName()).password(new BCryptPasswordEncoder().encode(userInfo.getPassWord())).roles(userInfo.getRole());
+            auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser(userInfo.getUserName()).password(new BCryptPasswordEncoder().encode(userInfo.getPassWord())).roles(userInfo.getRole());
         }
         loginService.destroy();
 

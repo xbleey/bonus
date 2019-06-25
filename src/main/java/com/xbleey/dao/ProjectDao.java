@@ -35,6 +35,11 @@ public interface ProjectDao extends JpaRepository<Project, Integer> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update project e set project_status=?1 where project_id=?2",nativeQuery = true)
-    public int updateStatus(String status,Integer projectId);
+    @Query(value = "update project e set project_status=?1,project_unpass_dir=?3 where project_id=?2",nativeQuery = true)
+    public int updateStatus(String status,Integer projectId,String dirUnPassInfo);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update project e set project_status=?1,project_unpass_boss=?3 where project_id=?2",nativeQuery = true)
+    public int updateStatusBoss(String status,Integer projectId,String bossUnPassInfo);
 }

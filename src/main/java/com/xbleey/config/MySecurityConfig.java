@@ -39,6 +39,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/projects").hasRole("engineer");
         http.authorizeRequests().antMatchers("/engineer/**").hasRole("engineer");
         http.authorizeRequests().antMatchers("/pm/**").hasRole("pm");
+        http.authorizeRequests().antMatchers("/director/**").hasRole("director");
 
         http.formLogin().loginPage("/login");
         http.logout().logoutSuccessUrl("/index");

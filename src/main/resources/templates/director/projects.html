@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://getbootstrap.com/docs/4.3/examples/offcanvas/ -->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>项目总表</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="../files/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          rel="stylesheet">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .slider-handle.custom {
+            background: transparent none;
+            /* You can customize the handle and set a background image */
+        }
+
+        /* Or display content like unicode characters or fontawesome icons */
+        .slider-handle.custom::before {
+            line-height: 20px;
+            font-size: 20px;
+            content: '❤'; /*unicode star character*/
+            color: #bbf476;
+        }
+
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="../files/offcanvas.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/bootstrap-slider/9.4.1/css/bootstrap-slider.css" rel="stylesheet">
+    <!-- Hightlight.js Theme Styles -->
+    <link href="../css/highlightjs-github-theme.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <a class="navbar-brand mr-auto mr-lg-0" href="#">项目总表</a>
+    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0" autocomplete="on">
+            <input class="form-control mr-sm-2" type="text" placeholder="模糊查找项目" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查找</button>
+        </form>
+    </div>
+</nav>
+
+<div class="nav-scroller bg-white shadow-sm">
+    <nav class="nav nav-underline">
+        <a class="nav-link active" href="/index">后台主页</a>
+        <a class="nav-link" href="#">
+            项目
+            <span class="badge badge-pill bg-light align-text-bottom" th:text="0">0</span>
+        </a>
+    </nav>
+</div>
+
+<main role="main" class="container">
+
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0">你好！总管：<span style="color: pink;font-size: large" sec:authentication="name"></span></h6>
+    </div>
+
+    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+        <img class="mr-3" src="../images/love.jpg" alt="" width="48" height="48">
+        <div class="lh-100">
+            <h6 class="mb-0 text-white lh-100"><span style="color: black">总经理:</span>项目达标率要求必须超过70%</h6>
+            <small>Since 2019-06-19</small>
+        </div>
+    </div>
+    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-pink rounded shadow-sm">
+        <img class="mr-3" src="../images/dog.jpg" alt="" width="48" height="48">
+        <div class="lh-100">
+            <h6 class="mb-0 text-white lh-100"><span style="color: black">总管:</span>超过500元的项目会上报总经理处</h6>
+            <small>Since 2019-06-22</small>
+        </div>
+    </div>
+
+
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0">待审核项目<span class="badge badge-pill bg-light align-text-bottom"
+                                                                  th:text="${submittedProjects!=null}?${submittedProjects.size()}"></span></h6>
+        <div class="media text-muted pt-3" th:each="project : ${submittedProjects}">
+            <svg t="1561206788316" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 p-id="6382" width="32" height="32">
+                <path d="M275.84 160H124.192l1.824 580.096a32 32 0 0 1-64 0L60.16 160a64 64 0 0 1 64-64h177.92l97.28 96h498.272a32 32 0 1 1 0 64H373.152l-97.28-96z"
+                      p-id="6383" fill="#1296db"></path>
+                <path d="M127.52 735.616a32 32 0 0 1-63.04-10.944l54.624-314.144C127.904 359.936 174.784 320 225.76 320h668.864c55.36 0 93.92 46.72 84.384 101.472l-72.32 416C897.824 888.064 850.976 928 800 928H160a32 32 0 0 1 0-64h640c19.712 0 40.096-17.376 43.616-37.472l72.32-416c2.784-15.904-5.984-26.528-21.312-26.528H225.76c-19.68 0-40.096 17.376-43.584 37.472l-54.656 314.144z"
+                      p-id="6384" fill="#1296db"></path>
+            </svg>
+            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <div class="d-flex justify-content-between align-items-right w-100">
+                    <strong style="font-family: 'Microsoft YaHei UI';font-size: large">项目名称：<span style="color: #040505"
+                                                                                                  th:text="${project.getProjectName()}"></span></strong>
+                    <a href="#" th:href="@{/engineer/projects/}+${project.getProjectId()}">更多内容</a>
+                </div>
+                <div class="d-flex justify-content-between align-items-right w-100">
+                    <strong style="font-family: 'Microsoft YaHei UI'">项目经理：<span style="color: #040505"
+                                                                                 th:text="${pmMaps.get(project.getProjectPmId())}"></span></strong>
+                    <a th:text="${project.getProjectStatus()}">进度</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0">过审项目<span class="badge badge-pill bg-light align-text-bottom"
+                                                                  th:text="${dirPassProject!=null}?${dirPassProject.size()}"></span></h6>
+        <div class="media text-muted pt-3" th:each="project : ${dirPassProject}">
+            <svg t="1561206788316" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 p-id="6382" width="32" height="32">
+                <path d="M275.84 160H124.192l1.824 580.096a32 32 0 0 1-64 0L60.16 160a64 64 0 0 1 64-64h177.92l97.28 96h498.272a32 32 0 1 1 0 64H373.152l-97.28-96z"
+                      p-id="6383" fill="#1296db"></path>
+                <path d="M127.52 735.616a32 32 0 0 1-63.04-10.944l54.624-314.144C127.904 359.936 174.784 320 225.76 320h668.864c55.36 0 93.92 46.72 84.384 101.472l-72.32 416C897.824 888.064 850.976 928 800 928H160a32 32 0 0 1 0-64h640c19.712 0 40.096-17.376 43.616-37.472l72.32-416c2.784-15.904-5.984-26.528-21.312-26.528H225.76c-19.68 0-40.096 17.376-43.584 37.472l-54.656 314.144z"
+                      p-id="6384" fill="#1296db"></path>
+            </svg>
+            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <div class="d-flex justify-content-between align-items-right w-100">
+                    <strong style="font-family: 'Microsoft YaHei UI';font-size: large">项目名称：<span style="color: #040505"
+                                                                                                  th:text="${project.getProjectName()}"></span></strong>
+                    <a href="#" th:href="@{/engineer/projects/}+${project.getProjectId()}">更多内容</a>
+                </div>
+                <div class="d-flex justify-content-between align-items-right w-100">
+                    <strong style="font-family: 'Microsoft YaHei UI'">项目经理：<span style="color: #040505"
+                                                                                 th:text="${pmMaps.get(project.getProjectPmId())}"></span></strong>
+                    <a th:text="${project.getProjectStatus()}">进度</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0">不过审项目<span class="badge badge-pill bg-light align-text-bottom"
+                                                                  th:text="${dirUnPassProject!=null}?${dirUnPassProject.size()}"></span></h6>
+        <div class="media text-muted pt-3" th:each="project : ${dirUnPassProject}">
+            <svg t="1561206788316" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 p-id="6382" width="32" height="32">
+                <path d="M275.84 160H124.192l1.824 580.096a32 32 0 0 1-64 0L60.16 160a64 64 0 0 1 64-64h177.92l97.28 96h498.272a32 32 0 1 1 0 64H373.152l-97.28-96z"
+                      p-id="6383" fill="#1296db"></path>
+                <path d="M127.52 735.616a32 32 0 0 1-63.04-10.944l54.624-314.144C127.904 359.936 174.784 320 225.76 320h668.864c55.36 0 93.92 46.72 84.384 101.472l-72.32 416C897.824 888.064 850.976 928 800 928H160a32 32 0 0 1 0-64h640c19.712 0 40.096-17.376 43.616-37.472l72.32-416c2.784-15.904-5.984-26.528-21.312-26.528H225.76c-19.68 0-40.096 17.376-43.584 37.472l-54.656 314.144z"
+                      p-id="6384" fill="#1296db"></path>
+            </svg>
+            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <div class="d-flex justify-content-between align-items-right w-100">
+                    <strong style="font-family: 'Microsoft YaHei UI';font-size: large">项目名称：<span style="color: #040505"
+                                                                                                  th:text="${project.getProjectName()}"></span></strong>
+                    <a href="#" th:href="@{/engineer/projects/}+${project.getProjectId()}">更多内容</a>
+                </div>
+                <div class="d-flex justify-content-between align-items-right w-100">
+                    <strong style="font-family: 'Microsoft YaHei UI'">项目经理：<span style="color: #040505"
+                                                                                 th:text="${pmMaps.get(project.getProjectPmId())}"></span></strong>
+                    <a th:text="${project.getProjectStatus()}">进度</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0">代付款项目<span class="badge badge-pill bg-light align-text-bottom"
+                                                                   th:text="${unFinProjects!=null}?${unFinProjects.size()}"></span></h6>
+        <div class="media text-muted pt-3" th:each="project : ${unFinProjects}">
+            <svg t="1561206788316" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 p-id="6382" width="32" height="32">
+                <path d="M275.84 160H124.192l1.824 580.096a32 32 0 0 1-64 0L60.16 160a64 64 0 0 1 64-64h177.92l97.28 96h498.272a32 32 0 1 1 0 64H373.152l-97.28-96z"
+                      p-id="6383" fill="#1296db"></path>
+                <path d="M127.52 735.616a32 32 0 0 1-63.04-10.944l54.624-314.144C127.904 359.936 174.784 320 225.76 320h668.864c55.36 0 93.92 46.72 84.384 101.472l-72.32 416C897.824 888.064 850.976 928 800 928H160a32 32 0 0 1 0-64h640c19.712 0 40.096-17.376 43.616-37.472l72.32-416c2.784-15.904-5.984-26.528-21.312-26.528H225.76c-19.68 0-40.096 17.376-43.584 37.472l-54.656 314.144z"
+                      p-id="6384" fill="#1296db"></path>
+            </svg>
+            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <div class="d-flex justify-content-between align-items-right w-100">
+                    <strong style="font-family: 'Microsoft YaHei UI';font-size: large">项目名称：<span style="color: #040505"
+                                                                                                  th:text="${project.getProjectName()}"></span></strong>
+                    <a href="#" th:href="@{/engineer/projects/}+${project.getProjectId()}">更多内容</a>
+                </div>
+                <div class="d-flex justify-content-between align-items-right w-100">
+                    <strong style="font-family: 'Microsoft YaHei UI'">项目经理：<span style="color: #040505"
+                                                                                 th:text="${pmMaps.get(project.getProjectPmId())}"></span></strong>
+                    <a th:text="${project.getProjectStatus()}">进度</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="../files/jquery-3.2.1.slim.min.js" th:href="@{webjars/jquery/3.4.1/jquery.slim.min.js}"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="#" th:href="@{webjars/bootstrap/4.3.1/js/bootstrap.bundle.min.js}"></script>
+<script src="../files/offcanvas.js"></script>
+<script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-slider/9.4.1/bootstrap-slider.min.js"></script>
+<script>
+    var slider = new Slider("#ex9");
+    slider.on("slide", function (sliderValue) {
+        document.getElementById("ex9").textContent = sliderValue;
+    });
+</script>
+
+
+</body>
+</html>

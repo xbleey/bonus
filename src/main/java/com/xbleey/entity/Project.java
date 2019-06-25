@@ -41,6 +41,11 @@ public class Project {
     private Integer projectTotalMoney;
     @Column(name = " project_status")
     private String projectStatus;
+    @Column(name = " project_unpass_dir")
+    private String dirUnPassInfo;
+    @Column(name = " project_unpass_boss")
+    private String bossUnPassInfo;
+
 
     public Integer getProjectId() {
         return projectId;
@@ -106,6 +111,23 @@ public class Project {
         this.projectStatus = projectStatus;
     }
 
+
+    public String getDirUnPassInfo() {
+        return dirUnPassInfo;
+    }
+
+    public void setDirUnPassInfo(String dirUnPassInfo) {
+        this.dirUnPassInfo = dirUnPassInfo;
+    }
+
+    public String getBossUnPassInfo() {
+        return bossUnPassInfo;
+    }
+
+    public void setBossUnPassInfo(String bossUnPassInfo) {
+        this.bossUnPassInfo = bossUnPassInfo;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -116,7 +138,9 @@ public class Project {
                 ", projectStartMoney=" + projectStartMoney +
                 ", projectTrueMoney=" + projectTrueMoney +
                 ", projectTotalMoney=" + projectTotalMoney +
-                ", projectStatus=" + projectStatus +
+                ", projectStatus='" + projectStatus + '\'' +
+                ", dirUnPassInfo='" + dirUnPassInfo + '\'' +
+                ", bossUnPassInfo='" + bossUnPassInfo + '\'' +
                 '}';
     }
 }

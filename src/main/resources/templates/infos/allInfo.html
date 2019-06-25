@@ -108,7 +108,7 @@
                     <tr th:each="boss : ${bosses}">
                         <td th:text="经理">经理</td>
                         <td th:text="${boss.getBossId()}">id</td>
-                        <td th:text="${boss.getBossName()}">user_name</td>
+                        <td th:text="${boss.getBossUser()}">user_name</td>
                         <td th:text="${boss.getBossPass()}">user_pass</td>
                         <td th:text="${boss.getBossName()}">name</td>
                         <td th:text="${boss.getBossSex()?'男':'女'}"></td>

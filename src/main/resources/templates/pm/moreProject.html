@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://getbootstrap.com/docs/4.3/examples/checkout/ -->
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="junhao">
+    <meta name="generator" content="junhao">
+    <title>添加你的项目</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="../files/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"
+          rel="stylesheet">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="../css/form-validation.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="../favicon.ico" alt="" width="72" height="72">
+        <h2>项目详情</h2>
+        <p class="lead">针对目前高效管理项目的要求，创建项目必须要求填写以下信息。</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-muted">奖金预算</span>
+                <span class="badge badge-secondary badge-pill">1</span>
+            </h4>
+            <ul class="list-group mb-3">
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>总计 (RMB)</span>
+                    <strong>￥<span id="total" th:text="${project.getProjectStartMoney()}">0</span></strong>
+                </li>
+            </ul>
+
+            <form class="card p-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="projectStartMoney" name="StartMoney"
+                           placeholder="修改预算金额" readonly>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-secondary" onclick="changeTotal()">修改</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="projectStartMoney" name="StartMoney"
+                           placeholder="添加福利" readonly>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-secondary" onclick="changeTotal()">修改</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8 order-md-1">
+            <h4 class="mb-3">项目细则</h4>
+            <h4 class="mb-3" style="color: red" th:if="!${#strings.isEmpty(moneyMessage)}" th:text="${moneyMessage}">
+            </h4>
+
+            <form class="needs-validation" novalidate="" action="/pm/addProject" method="post" autocomplete="on">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">项目经理编号</label>
+                        <input type="text" class="form-control" id="firstName" name="projectPmId" placeholder=""
+                               value="" readonly th:value="${project!=null}?${project.getProjectPmId()}">
+                        <div class="invalid-feedback">
+                            项目经理编号为必填项目！
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">项目经理姓名</label>
+                        <input type="text" class="form-control" id="lastName" name="PmName" placeholder="" value=""
+                               readonly th:value="${project!=null&&pmMaps!=null}?${pmMaps.get(project.getProjectPmId())}">
+                        <div class="invalid-feedback">
+                            项目经理姓名为必填项目！
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="username">项目全称</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="username" name="projectName" placeholder="请输入全称"
+                               readonly th:value="${project!=null}?${project.getProjectName()}">
+                        <div class="invalid-feedback" style="width: 100%;">
+                            项目全称为必填项目！
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address">项目介绍</label>
+                    <input type="text" class="form-control" id="address" name="projectInstruction"
+                           placeholder="请复制项目介绍到此处" readonly th:value="${project!=null}?${project.getProjectInstruction()}">
+                    <div class="invalid-feedback">
+                        必须输入介绍
+                    </div>
+                </div>
+
+                <hr class="mb-4">
+                <h4 class="mb-3">选择工程师</h4>
+
+                <div class="custom-control custom-checkbox" th:each="engineer: ${engineers}">
+                    <input type="checkbox" class="custom-control-input" id="same-address" th:name="EngineerId"
+                           th:id="${engineer.getEngineerId()}" th:value="${engineer.getEngineerId()}" th:checked="${teamIds.contains(engineer.getEngineerId())}">
+                    <label class="custom-control-label" th:for="${engineer.getEngineerId()}"><span
+                            style=" font-weight:bold">编号:</span>
+                        <span th:text="${engineer.getEngineerId()}"></span><span
+                                style=" font-weight:bold">❤❤姓名：</span><span
+                                th:text="${engineer.getEngineerName()}"></span></label>
+                </div>
+                <hr class="mb-4">
+                <input type="hidden" name="projectStartMoney" id="StartMoney" value="">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+                <button class="btn btn-warning btn-lg btn-block" type="button" onclick="returnToIndex()">返回项目页</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">© 2017-2019 奖金管理系统</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">联系开发者</a>
+            </li>
+
+        </ul>
+    </footer>
+</div>
+<script src="../files/jquery-3.2.1.slim.min.js" th:href="@{webjars/jquery/3.4.1/jquery.slim.min.js}"
+        crossorigin="anonymous"></script>
+<script src="../files/form-validation.js"></script>
+<script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="../js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    function changeTotal() {
+        var total = document.getElementById("projectStartMoney").value;
+        var reg = /^[0-9]+.?[0-9]*$/;
+        if (total != null) {
+            if (reg.test(total)) {
+                $(document).ready(function (e) {
+                    $('#total').html(total);
+                })
+                document.getElementById("StartMoney").value = total;
+            }
+        }
+        document.getElementById("projectStartMoney").value = "";
+    }
+</script>
+<script type="text/javascript">
+    function returnToIndex() {
+        window.location.href = "/pm/projects";
+    }
+</script>
+</body>
+</html>

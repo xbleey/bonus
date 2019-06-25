@@ -10,8 +10,6 @@
  */
 package com.xbleey.controller;
 
-import com.xbleey.entity.Engineer;
-import com.xbleey.entity.Pm;
 import com.xbleey.entity.Project;
 import com.xbleey.service.EngineerService;
 import com.xbleey.service.PmService;
@@ -23,12 +21,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br>

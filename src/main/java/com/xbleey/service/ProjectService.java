@@ -10,16 +10,19 @@
  */
 package com.xbleey.service;
 
+import com.xbleey.dao.PmDao;
 import com.xbleey.dao.ProjectDao;
 import com.xbleey.dao.TeamDao;
 import com.xbleey.entity.Project;
 import com.xbleey.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -35,6 +38,8 @@ public class ProjectService {
     ProjectDao projectDao;
     @Autowired
     TeamDao teamDao;
+    @Autowired
+    PmService pmService;
 
     public List<Project> findAllProject() {
         List<Project> projects = projectDao.findAll();
@@ -86,8 +91,21 @@ public class ProjectService {
         return newProjects;
     }
 
-    public Integer updateStatus(String status, Integer projectId) {
-        return projectDao.updateStatus(status, projectId);
+    public Integer updateStatus(String status, Integer projectId, String dirUnPassInfo) {
+        return projectDao.updateStatus(status, projectId, dirUnPassInfo);
+    }
+
+    public Integer updateStatusBoss(String status, Integer projectId, String bossUnPassInfo) {
+        return projectDao.updateStatusBoss(status, projectId, bossUnPassInfo);
+    }
+
+
+    public void classifyProject(Model model,List<Project> sourceProjects, HashMap<String, String> names) {
+        for (Map.Entry<String, String> name : names.entrySet()) {
+            model.addAttribute(name.getKey(), classifyProjectByStatus(sourceProjects, name.getValue()));
+        }
+        HashMap<Integer, String> pmMaps =pmService.getIdAndName();
+        model.addAttribute("pmMaps", pmMaps);
     }
 }
  

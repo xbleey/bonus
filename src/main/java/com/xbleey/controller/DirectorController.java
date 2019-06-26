@@ -41,25 +41,26 @@ public class DirectorController {
     @GetMapping(value = "/director/projects")
     public String goProjects(Model model) {
         List<Project> projects = projectService.findAllProject();
-        HashMap<String,String> names = new HashMap<>();
-        names.put("submittedProjects","审核中");
-        names.put("dirPassProject","总管过审");
-        names.put("dirUnPassProject","总管拒绝通过");
-        projectService.classifyProject(model,projects,names);
+        HashMap<String, String> names = new HashMap<>();
+        names.put("submittedProjects", "审核中");
+        names.put("dirPassProject", "总管过审");
+        names.put("dirUnPassProject", "总管拒绝通过");
+        names.put("finishAllProjects", "已完结");
+        projectService.classifyProject(model, projects, names);
         return "director/projects";
     }
 
     @DeleteMapping(value = "/pm/addProject")
-    public String passProjectDir(Model model,Project project){
+    public String passProjectDir(Model model, Project project) {
         project.setProjectStatus("总管过审");
-        projectService.updateStatus(project.getProjectStatus(), project.getProjectId(),null);
+        projectService.updateStatus(project.getProjectStatus(), project.getProjectId(), null);
         return "redirect:/director/projects";
     }
 
     @PatchMapping(value = "/pm/addProject")
-    public String unPassProjectDir(Model model,Project project){
+    public String unPassProjectDir(Model model, Project project) {
         project.setProjectStatus("总管拒绝通过");
-        projectService.updateStatus(project.getProjectStatus(), project.getProjectId(),project.getDirUnPassInfo());
+        projectService.updateStatus(project.getProjectStatus(), project.getProjectId(), project.getDirUnPassInfo());
         return "redirect:/director/projects";
     }
 }

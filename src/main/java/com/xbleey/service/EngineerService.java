@@ -15,6 +15,7 @@ import com.xbleey.entity.Engineer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -41,6 +42,15 @@ public class EngineerService {
 
     public Engineer findDistinctByEngineerUser(String engineerUser) {
         return engineerDao.findFirstByEngineerUser(engineerUser);
+    }
+
+    public HashMap<Integer, String> getIdAndName() {
+        List<Engineer> engineers = engineerDao.findAll();
+        HashMap<Integer, String> engMaps = new HashMap<>();
+        for (Engineer e : engineers) {
+            engMaps.put(e.getEngineerId(), e.getEngineerName());
+        }
+        return engMaps;
     }
 }
  

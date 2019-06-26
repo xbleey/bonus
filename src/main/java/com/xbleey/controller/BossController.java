@@ -46,6 +46,7 @@ public class BossController {
         names.put("submittedProjects","总管过审");
         names.put("bossPassProject","总经理过审");
         names.put("bossUnPassProject","总经理拒绝通过");
+        names.put("finishAllProjects", "已完结");
         projectService.classifyProject(model,projects,names);
         return "boss/projects";
     }
@@ -54,6 +55,7 @@ public class BossController {
     public String bossPassPro(Project project){
         project.setProjectStatus("总经理过审");
         projectService.updateStatus(project.getProjectStatus(), project.getProjectId(),project.getDirUnPassInfo());
+        projectService.updateStatusBoss(project.getProjectStatus(), project.getProjectId(),null);
         return "redirect:/boss/projects";
     }
     @DeleteMapping(value = "boss/addProject")

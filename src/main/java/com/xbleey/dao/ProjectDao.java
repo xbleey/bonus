@@ -33,13 +33,22 @@ public interface ProjectDao extends JpaRepository<Project, Integer> {
 
     public List<Project> findAllByProjectStatus(String projectStatus);
 
-    @Transactional
-    @Modifying(clearAutomatically = true)
-    @Query(value = "update project e set project_status=?1,project_unpass_dir=?3 where project_id=?2",nativeQuery = true)
-    public int updateStatus(String status,Integer projectId,String dirUnPassInfo);
+    public List<Project> findAllByProjectFinish(Boolean projectFinish);
+
+    public List<Project> findAllByProjectStatusAndProjectFinish(String status, Boolean finish);
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update project e set project_status=?1,project_unpass_boss=?3 where project_id=?2",nativeQuery = true)
-    public int updateStatusBoss(String status,Integer projectId,String bossUnPassInfo);
+    @Query(value = "update project e set project_status=?1,project_unpass_dir=?3 where project_id=?2", nativeQuery = true)
+    public int updateStatus(String status, Integer projectId, String dirUnPassInfo);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update project e set project_status=?1,project_unpass_boss=?3 where project_id=?2", nativeQuery = true)
+    public int updateStatusBoss(String status, Integer projectId, String bossUnPassInfo);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update project e set project_finish=?1,project_true_money=?2, project_total_money=?3 where project_id=?4", nativeQuery = true)
+    public int updateFinishPm(Boolean projectFinish, Integer projectTrueMoney, Integer projectTotalMoney, Integer projectId);
 }

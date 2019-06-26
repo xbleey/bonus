@@ -13,6 +13,8 @@ package com.xbleey.dao;
 import com.xbleey.entity.Welfare;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈〉
@@ -22,4 +24,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @since 1.0.0
  */
 public interface WelfareDao extends JpaRepository<Welfare,Integer> {
+
+    public List<Welfare> findAllByWelfareProjectId(Integer welfareProjectId);
 }

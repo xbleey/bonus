@@ -9,35 +9,31 @@ public class Welfare {
     @Id
     @Column(name = " welfare_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long welfareId;
+    private Integer welfareId;
     @Column(name = " welfare_project_id")
-    private long welfareProjectId;
+    private Integer welfareProjectId;
     @Column(name = " welfare_name")
     private String welfareName;
     @Column(name = " welfare_info")
     private String welfareInfo;
     @Column(name = " welfare_number")
-    private long welfareNumber;
+    private Integer welfareNumber;
 
-
-
-    public long getWelfareId() {
+    public Integer getWelfareId() {
         return welfareId;
     }
 
-    public void setWelfareId(long welfareId) {
+    public void setWelfareId(Integer welfareId) {
         this.welfareId = welfareId;
     }
 
-
-    public long getWelfareProjectId() {
+    public Integer getWelfareProjectId() {
         return welfareProjectId;
     }
 
-    public void setWelfareProjectId(long welfareProjectId) {
+    public void setWelfareProjectId(Integer welfareProjectId) {
         this.welfareProjectId = welfareProjectId;
     }
-
 
     public String getWelfareName() {
         return welfareName;
@@ -47,7 +43,6 @@ public class Welfare {
         this.welfareName = welfareName;
     }
 
-
     public String getWelfareInfo() {
         return welfareInfo;
     }
@@ -56,12 +51,11 @@ public class Welfare {
         this.welfareInfo = welfareInfo;
     }
 
-
-    public long getWelfareNumber() {
+    public Integer getWelfareNumber() {
         return welfareNumber;
     }
 
-    public void setWelfareNumber(long welfareNumber) {
+    public void setWelfareNumber(Integer welfareNumber) {
         this.welfareNumber = welfareNumber;
     }
 

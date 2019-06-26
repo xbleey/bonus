@@ -10,11 +10,11 @@
  */
 package com.xbleey.service;
 
-import com.xbleey.dao.PmDao;
 import com.xbleey.dao.ProjectDao;
 import com.xbleey.dao.TeamDao;
 import com.xbleey.entity.Project;
 import com.xbleey.entity.Team;
+import com.xbleey.entity.Welfare;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -43,11 +43,36 @@ public class ProjectService {
 
     public List<Project> findAllProject() {
         List<Project> projects = projectDao.findAll();
+        List<Project> finishAllProjects = projectDao.findAllByProjectStatusAndProjectFinish("总经理过审", true);
+        projects.removeAll(finishAllProjects);
         return projects;
+    }
+
+    public List<Project> findFinishAllProjects() {
+        return projectDao.findAllByProjectStatusAndProjectFinish("总经理过审", true);
     }
 
     public List<Project> findAllByProjectStatus(String status) {
         return projectDao.findAllByProjectStatus(status);
+    }
+
+    public List<Project> findAllByEngineerId(Integer engineerId) {
+        ArrayList<Project> projects = new ArrayList<>();
+        List<Team> teams = teamDao.findAllByEngineerId(engineerId);
+        for (Team t : teams) {
+            projects.add(projectDao.getFirstByProjectId(t.getProjectId()));
+        }
+        return projects;
+    }
+
+    public List<Project> findAllByPmId(Integer pmId) {
+        List<Project> projects =projectDao.findAllByProjectPmId(pmId);
+        projects.removeAll(projectDao.findAllByProjectStatusAndProjectFinish("总经理过审", true));
+        return projects;
+    }
+
+    public List<Project> findAllByFinish(Boolean finish) {
+        return projectDao.findAllByProjectFinish(finish);
     }
 
     public Project getByProjectId(Integer projectId) {
@@ -68,17 +93,16 @@ public class ProjectService {
 
     }
 
-    public List<Project> findAllByEngineerId(Integer engineerId) {
-        ArrayList<Project> projects = new ArrayList<>();
-        List<Team> teams = teamDao.findAllByEngineerId(engineerId);
-        for (Team t : teams) {
-            projects.add(projectDao.getFirstByProjectId(t.getProjectId()));
-        }
-        return projects;
+    public Integer updateStatus(String status, Integer projectId, String dirUnPassInfo) {
+        return projectDao.updateStatus(status, projectId, dirUnPassInfo);
     }
 
-    public List<Project> findAllByPmId(Integer pmId) {
-        return projectDao.findAllByProjectPmId(pmId);
+    public Integer updateStatusBoss(String status, Integer projectId, String bossUnPassInfo) {
+        return projectDao.updateStatusBoss(status, projectId, bossUnPassInfo);
+    }
+
+    public Integer updateFinishPm(boolean finish, Integer projectTrueMoney, Integer projectTotalMoney, Integer projectId) {
+        return projectDao.updateFinishPm(finish, projectTrueMoney, projectTotalMoney, projectId);
     }
 
     public List<Project> classifyProjectByStatus(List<Project> projects, String status) {
@@ -91,21 +115,37 @@ public class ProjectService {
         return newProjects;
     }
 
-    public Integer updateStatus(String status, Integer projectId, String dirUnPassInfo) {
-        return projectDao.updateStatus(status, projectId, dirUnPassInfo);
-    }
+    public void classifyProject(Model model, List<Project> sourceProjects, HashMap<String, String> names) {
 
-    public Integer updateStatusBoss(String status, Integer projectId, String bossUnPassInfo) {
-        return projectDao.updateStatusBoss(status, projectId, bossUnPassInfo);
-    }
-
-
-    public void classifyProject(Model model,List<Project> sourceProjects, HashMap<String, String> names) {
         for (Map.Entry<String, String> name : names.entrySet()) {
-            model.addAttribute(name.getKey(), classifyProjectByStatus(sourceProjects, name.getValue()));
+            if (name.getKey().equals("finishAllProjects")) {
+                model.addAttribute(name.getKey(), findFinishAllProjects());
+            } else {
+                model.addAttribute(name.getKey(), classifyProjectByStatus(sourceProjects, name.getValue()));
+            }
         }
-        HashMap<Integer, String> pmMaps =pmService.getIdAndName();
+        HashMap<Integer, String> pmMaps = pmService.getIdAndName();
         model.addAttribute("pmMaps", pmMaps);
+    }
+
+    public void setTrueMoney(Project project, List<Welfare> welfares) {
+        int total = 0;
+        total = +project.getProjectStartMoney();
+        for (Welfare welfare : welfares) {
+            total = total + welfare.getWelfareNumber();
+        }
+        project.setProjectTrueMoney(total);
+    }
+
+    public void setTotalMoney(Project project, Integer[] bonuses) {
+        if (bonuses != null) {
+            int total = 0;
+            total = project.getProjectTrueMoney() - project.getProjectStartMoney();
+            for (int i = 0; i < bonuses.length; i++) {
+                total = total + bonuses[i];
+            }
+            project.setProjectTotalMoney(total);
+        }
     }
 }
  

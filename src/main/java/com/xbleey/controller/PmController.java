@@ -12,6 +12,7 @@ package com.xbleey.controller;
 
 import com.xbleey.entity.Engineer;
 import com.xbleey.entity.Project;
+import com.xbleey.entity.Welfare;
 import com.xbleey.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,8 @@ public class PmController {
     PmService pmService;
     @Autowired
     SecurityService securityService;
+    @Autowired
+    WelfareService welfareService;
 
     @GetMapping(value = "/pm/addProject")
     public String addProject(Model model) {
@@ -58,6 +61,7 @@ public class PmController {
         if (project.getProjectStartMoney() != null) {
 
             project.setProjectStatus("未提交");
+            project.setProjectFinish(false);
             projectService.saveProject(project);
             if (engineerId.length == 0) {
                 teamService.saveNoEngineerTeam(project.getProjectId(), project.getProjectPmId());
@@ -77,25 +81,66 @@ public class PmController {
     public String pmProject(Model model) {
         Integer pmId = pmService.getPmByPmUser(securityService.getUserName()).getPmId();
         List<Project> myProjects = projectService.findAllByPmId(pmId);
+        List<Project> finishProjects = projectService.findAllByFinish(true);
+        finishProjects.containsAll(myProjects);
+        myProjects.removeAll(finishProjects);
 
-        HashMap<String,String> names = new HashMap<>();
-        names.put("unFinProjects","未提交");
-        names.put("runProjects","总经理过审");
-        projectService.classifyProject(model,myProjects,names);
+        HashMap<String, String> names = new HashMap<>();
+        names.put("unFinProjects", "未提交");
+        names.put("runProjects", "总经理过审");
+        names.put("finishAllProjects", "已完结");
+        projectService.classifyProject(model, myProjects, names);
 
         myProjects.removeAll(projectService.classifyProjectByStatus(myProjects, "未提交"));
         myProjects.removeAll(projectService.classifyProjectByStatus(myProjects, "总经理过审"));
 
         List<Project> submittedProjects = new ArrayList<>(myProjects);
+        finishProjects.removeAll(projectService.findFinishAllProjects());
 
-        model.addAttribute("submittedProjects", submittedProjects);
-        return "pm/projects";
+        model.addAttribute("submittedProjects", myProjects);
+        model.addAttribute("finishProjects", finishProjects);
+        return "/pm/projects";
     }
 
     @PutMapping(value = "/pm/addProject")
     public String submitProject(Project project) {
         project.setProjectStatus("审核中");
-        projectService.updateStatus(project.getProjectStatus(), project.getProjectId(),project.getDirUnPassInfo());
+        projectService.updateStatus(project.getProjectStatus(), project.getProjectId(), project.getDirUnPassInfo());
+        return "redirect:/pm/projects";
+    }
+
+    @PostMapping(value = "/pm/finishProject")
+    public String finishProject(Model model, Project project) {
+        project = projectService.getByProjectId(project.getProjectId());
+
+        HashMap<Integer, String> pmMaps = pmService.getIdAndName();
+
+        List<Engineer> engineers = engineerService.findAll();
+
+        List<Integer> teamIds = teamService.getTeamIdsbyProjectId(project.getProjectId());
+
+        List<Welfare> welfares = welfareService.findAllByProjectId(project.getProjectId());
+        projectService.setTrueMoney(project, welfares);
+
+        model.addAttribute("project", project);
+        model.addAttribute("pmMaps", pmMaps);
+        model.addAttribute("engineers", engineers);
+        model.addAttribute("teamIds", teamIds);
+        model.addAttribute("welfares", welfares);
+        return "pm/allot";
+    }
+
+    @PostMapping(value = "/pm/submitProject")
+    public String submitProject(Project project, @RequestParam(value = "bonus") Integer[] bonuses) {
+        projectService.setTotalMoney(project, bonuses);
+        projectService.updateFinishPm(true, project.getProjectTrueMoney(), project.getProjectTotalMoney(), project.getProjectId());
+        List<Integer> teamIds = teamService.getTeamIdsbyProjectId(project.getProjectId());
+
+        for (int i = 0; i < bonuses.length; i++) {
+            teamService.updateMoney(bonuses[i], teamIds.get(i), project.getProjectId());
+        }
+
+        projectService.updateStatus("审核中", project.getProjectId(), null);
         return "redirect:/pm/projects";
     }
 }

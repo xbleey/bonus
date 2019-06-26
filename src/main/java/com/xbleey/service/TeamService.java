@@ -14,6 +14,7 @@ import com.xbleey.dao.TeamDao;
 import com.xbleey.entity.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,8 @@ import java.util.List;
 public class TeamService {
     @Autowired
     TeamDao teamDao;
+    @Autowired
+    EngineerService engineerService;
 
 
     public List<Team> FindDistinctTeam() {
@@ -90,6 +93,21 @@ public class TeamService {
             teamIds.add(t.getEngineerId());
         }
         return teamIds;
+    }
+
+    public int updateMoney(Integer engineerMoney, Integer engineerId, Integer projectId) {
+        return teamDao.updateStatus(engineerMoney, engineerId, projectId);
+    }
+
+    public void getNameAndMoneyById(Model model, Integer projectId) {
+        List<Team> teams = findByProjectId(projectId);
+        int allMoney =0;
+        for(Team team:teams){
+            allMoney=allMoney+team.getEngineerMoney();
+        }
+        model.addAttribute("teams", teams);
+        model.addAttribute("allMoney", allMoney);
+        model.addAttribute("engMaps", engineerService.getIdAndName());
     }
 }
  

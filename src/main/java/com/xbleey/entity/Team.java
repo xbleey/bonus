@@ -35,6 +35,8 @@ public class Team {
     private Integer pmId;
     @Column(name = " engineer_id")
     private Integer engineerId;
+    @Column(name = " engineer_money")
+    private Integer engineerMoney;
 
     public Integer getTeamId() {
         return teamId;
@@ -76,6 +78,14 @@ public class Team {
         this.engineerId = engineerId;
     }
 
+    public Integer getEngineerMoney() {
+        return engineerMoney;
+    }
+
+    public void setEngineerMoney(Integer engineerMoney) {
+        this.engineerMoney = engineerMoney;
+    }
+
     @Override
     public String toString() {
         return "Team{" +
@@ -84,6 +94,7 @@ public class Team {
                 ", projectId=" + projectId +
                 ", pmId=" + pmId +
                 ", engineerId=" + engineerId +
+                ", engineerMoney=" + engineerMoney +
                 '}';
     }
 

@@ -45,6 +45,8 @@ public class Project {
     private String dirUnPassInfo;
     @Column(name = " project_unpass_boss")
     private String bossUnPassInfo;
+    @Column(name = "project_finish")
+    private Boolean projectFinish;
 
 
     public Integer getProjectId() {
@@ -128,6 +130,14 @@ public class Project {
         this.bossUnPassInfo = bossUnPassInfo;
     }
 
+    public Boolean getProjectFinish() {
+        return projectFinish;
+    }
+
+    public void setProjectFinish(Boolean projectFinish) {
+        this.projectFinish = projectFinish;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
@@ -141,6 +151,7 @@ public class Project {
                 ", projectStatus='" + projectStatus + '\'' +
                 ", dirUnPassInfo='" + dirUnPassInfo + '\'' +
                 ", bossUnPassInfo='" + bossUnPassInfo + '\'' +
+                ", projectFinish=" + projectFinish +
                 '}';
     }
 }

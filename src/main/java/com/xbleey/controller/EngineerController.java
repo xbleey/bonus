@@ -13,6 +13,7 @@ package com.xbleey.controller;
 import com.xbleey.entity.Engineer;
 import com.xbleey.entity.Pm;
 import com.xbleey.entity.Project;
+import com.xbleey.entity.Welfare;
 import com.xbleey.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,8 @@ public class EngineerController {
     PmService pmService;
     @Autowired
     SecurityService securityService;
+    @Autowired
+    WelfareService welfareService;
 
     @GetMapping(value = "/engineer/projects")
     public String engineerProject(Model model) {
@@ -72,11 +75,24 @@ public class EngineerController {
 
         Integer role = securityService.getRole();
 
+        List<Welfare> welfares = welfareService.findAllByProjectId(projectId);
+
+        Integer welfareAll =0;
+        for(Welfare w:welfares){
+            welfareAll=welfareAll+w.getWelfareNumber();
+        }
+
+       if(project.getProjectFinish()){
+           teamService.getNameAndMoneyById(model,projectId);
+       }
+
         model.addAttribute("project", project);
         model.addAttribute("role", role);
         model.addAttribute("pmMaps", pmMaps);
         model.addAttribute("engineers", engineers);
         model.addAttribute("teamIds", teamIds);
+        model.addAttribute("welfares", welfares);
+        model.addAttribute("welfareAll", welfareAll);
         return "engineer/addProject";
     }
 

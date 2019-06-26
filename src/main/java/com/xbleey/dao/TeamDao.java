@@ -12,6 +12,9 @@ package com.xbleey.dao;
 
 import com.xbleey.entity.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,4 +30,9 @@ public interface TeamDao extends JpaRepository<Team, Integer> {
     public List<Team> findAllByEngineerId(Integer engineerId);
 
     public List<Team> findAllByProjectId(Integer engineerId);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update team e set engineer_money=?1 where engineer_id=?2 and project_id=?3", nativeQuery = true)
+    public int updateStatus(Integer engineerMoney, Integer engineerId, Integer projectId);
 }

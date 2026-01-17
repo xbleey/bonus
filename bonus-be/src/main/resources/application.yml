@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/bonus?characterEncoding=utf8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true&useSSL=false
+    username: root
+    password: 12341234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # OAuth2 Authorization Server JWK Set URI (公钥端点)
+          jwk-set-uri: http://localhost:9000/oauth2/jwks
+          # 可选：直接指定issuer，会自动发现jwk-set-uri
+          # issuer-uri: http://localhost:9000

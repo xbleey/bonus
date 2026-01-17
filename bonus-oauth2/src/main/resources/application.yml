@@ -1,0 +1,42 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: bonus-oauth2-server
+
+  # 数据库配置 - 使用与bonus-be相同的数据库
+  datasource:
+    url: jdbc:mysql://localhost:3306/bonus?characterEncoding=utf8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true&useSSL=false
+    username: root
+    password: 12341234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: true
+
+  # Redis配置 - 用于存储OAuth2凭证
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 0
+      jedis:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+      timeout: 3000ms
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG

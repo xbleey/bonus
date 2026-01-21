@@ -7,9 +7,9 @@ spring:
 
   # 数据库配置 - 使用与bonus-be相同的数据库
   datasource:
-    url: jdbc:mysql://localhost:3306/bonus?characterEncoding=utf8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true&useSSL=false
-    username: root
-    password: 12341234
+    url: jdbc:mysql://119.45.171.216:3306/bonus?characterEncoding=utf8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true&useSSL=false
+    username: app
+    password: Dongdong1@@
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # JPA配置
@@ -37,6 +37,6 @@ spring:
 # 日志配置
 logging:
   level:
-    root: INFO
+    root: DEBUG
     org.springframework.security: DEBUG
     org.springframework.security.oauth2: DEBUG

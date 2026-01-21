@@ -29,6 +29,7 @@ import org.springframework.security.oauth2.server.authorization.settings.TokenSe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -45,9 +46,16 @@ public class AuthorizationServerConfig {
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
             throws Exception {
-        OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-        http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-                .oidc(Customizer.withDefaults());
+        OAuth2AuthorizationServerConfigurer authorizationServerConfigurer =
+                OAuth2AuthorizationServerConfigurer.authorizationServer();
+        RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
+
+        http
+                .securityMatcher(endpointsMatcher)
+                .authorizeHttpRequests((authorize) -> authorize.anyRequest().authenticated())
+                .csrf((csrf) -> csrf.ignoringRequestMatchers(endpointsMatcher))
+                .with(authorizationServerConfigurer, (authorizationServer) ->
+                        authorizationServer.oidc(Customizer.withDefaults()));
 
         http
                 .exceptionHandling((exceptions) -> exceptions

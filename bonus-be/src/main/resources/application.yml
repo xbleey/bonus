@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://119.45.171.216:3306/bonus?characterEncoding=utf8&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true&useSSL=false
     username: app
-    password: 12341234
+    password: Dongdong1@@
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -17,3 +17,6 @@ spring:
           jwk-set-uri: http://localhost:9000/oauth2/jwks
           # 可选：直接指定issuer，会自动发现jwk-set-uri
           # issuer-uri: http://localhost:9000
+logging:
+  level:
+    root: DEBUG

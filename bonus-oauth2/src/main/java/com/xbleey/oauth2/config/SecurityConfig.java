@@ -32,7 +32,9 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/**", "/error").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults());
+                .formLogin((form) -> form
+                        .defaultSuccessUrl("http://localhost:8080/", true)
+                );
 
         return http.build();
     }

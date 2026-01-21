@@ -39,7 +39,7 @@ public class PmService {
         List<ProjectManager> projectManagers = pmDao.findAll();
         HashMap<Integer, String> pmNames = new HashMap<>();
         for (ProjectManager p : projectManagers) {
-            pmNames.put(p.getPmId(), p.getPmName());
+            pmNames.put(p.getId(), p.getPmName());
         }
         return pmNames;
     }

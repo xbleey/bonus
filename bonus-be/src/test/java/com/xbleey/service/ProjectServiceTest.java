@@ -71,7 +71,7 @@ class ProjectServiceTest {
     void testGetByProjectId() {
         Project project = new Project();
         project.setId(1);
-        when(projectDao.getFirstByProjectId(1)).thenReturn(project);
+        when(projectDao.getFirstById(1)).thenReturn(project);
 
         Project result = projectService.getByProjectId(1);
         assertNotNull(result);
@@ -109,7 +109,7 @@ class ProjectServiceTest {
 
         Project p1 = new Project();
         p1.setId(1);
-        when(projectDao.getFirstByProjectId(1)).thenReturn(p1);
+        when(projectDao.getFirstById(1)).thenReturn(p1);
 
         List<Project> result = projectService.findAllByEngineerId(100);
         assertEquals(1, result.size());

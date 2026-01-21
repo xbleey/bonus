@@ -34,8 +34,6 @@ public class ProjectManager {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "id")
-    private Integer pmId;
     @Column(name = "pm_user")
     private String pmUser;
     @Column(name = "pm_pass")

@@ -25,7 +25,7 @@ import java.util.List;
  * @since 1.0.0
  */
 public interface ProjectDao extends JpaRepository<Project, Integer> {
-    Project getFirstByProjectId(Integer projectId);
+    Project getFirstById(Integer id);
 
     List<Project> findAllByProjectPmId(Integer pmId);
 

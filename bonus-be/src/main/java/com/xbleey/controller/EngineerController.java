@@ -56,7 +56,7 @@ public class EngineerController {
         List<ProjectManager> projectManagers = pmService.findAll();
         HashMap<Integer, String> pmMaps = new HashMap<>();
         for (ProjectManager p : projectManagers) {
-            pmMaps.put(p.getPmId(), p.getPmName());
+            pmMaps.put(p.getId(), p.getPmName());
         }
 
         model.addAttribute("myProjects", myProjects);

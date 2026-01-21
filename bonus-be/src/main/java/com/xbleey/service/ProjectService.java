@@ -51,7 +51,7 @@ public class ProjectService {
     }
 
     public Project getByProjectId(Integer projectId) {
-        return projectDao.getFirstByProjectId(projectId);
+        return projectDao.getFirstById(projectId);
     }
 
     public Map<Integer, String> getIdAndName() {
@@ -72,7 +72,7 @@ public class ProjectService {
         ArrayList<Project> projects = new ArrayList<>();
         List<Team> teams = teamDao.findAllByEngineerId(engineerId);
         for (Team t : teams) {
-            projects.add(projectDao.getFirstByProjectId(t.getProjectId()));
+            projects.add(projectDao.getFirstById(t.getProjectId()));
         }
         return projects;
     }

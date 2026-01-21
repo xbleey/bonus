@@ -80,7 +80,7 @@ public class PmController {
 
     @GetMapping(value = "/pm/projects")
     public String pmProject(Model model) {
-        Integer pmId = pmService.getPmByPmUser(securityService.getUserName()).getPmId();
+        Integer pmId = pmService.getPmByPmUser(securityService.getUserName()).getId();
         List<Project> myProjects = projectService.findAllByPmId(pmId);
 
         HashMap<String, ProjectStatus> names = new HashMap<>();

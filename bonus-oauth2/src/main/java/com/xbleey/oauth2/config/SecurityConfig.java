@@ -30,10 +30,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/actuator/**", "/error").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .formLogin((form) -> form
-                        .defaultSuccessUrl("http://localhost:8080/", true)
+                        .anyRequest().permitAll()
                 );
 
         return http.build();
